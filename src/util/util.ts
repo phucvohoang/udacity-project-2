@@ -12,12 +12,17 @@ export async function filterImageFromURL(inputURL: string): Promise<string> {
   return new Promise(async (resolve, reject) => {
     try {
       // ==== Code from Udacity ===
-      // const photo = await Jimp.read(inputURL);
-      // const outpath =
-      //   "/tmp/filtered." + Math.floor(Math.random() * 2000) + ".jpg";
-      const outpath = '/tmp/filtered/' + inputURL + '.jpg';
-      const photo = await Jimp.read(outpath);
-      console.log('🚀 ~ file: util.ts:18 ~ returnnewPromise ~ outpath:', outpath);
+      console.log('🚀 ~ file: util.ts:16 ~ returnnewPromise ~ inputURL:', inputURL);
+      const photo = await Jimp.read(inputURL);
+      console.log('🚀 ~ file: util.ts:17 ~ returnnewPromise ~ photo:', photo);
+      const outpath = '/tmp/filtered.' + Math.floor(Math.random() * 2000) + '.jpg';
+      // === End code from Udacity ===
+
+      // ---- This is Code for testing on Development ---
+      // const outpath = '/tmp/filtered/' + inputURL + '.jpg';
+      // const photo = await Jimp.read(outpath);
+      // console.log('🚀 ~ file: util.ts:18 ~ returnnewPromise ~ outpath:', outpath);
+      // --- End Code Testing ---
       await photo
         .resize(256, 256) // resize
         .quality(60) // set JPEG quality
