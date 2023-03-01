@@ -49,6 +49,7 @@ import { filterImageFromURL, deleteLocalFiles } from './util/util';
           // Delete files by using utils function
           console.log('Starting delete file');
           await deleteLocalFiles(listImage);
+          console.log('Delete File successfully');
         } catch (error) {
           console.log('🚀 ~ We have an error when delete image on local:', error);
         }

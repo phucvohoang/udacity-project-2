@@ -1,5 +1,6 @@
 import fs from 'fs';
 import Jimp = require('jimp');
+const axios = require('axios').default; // Add new package to handle MIME Error
 
 // filterImageFromURL
 // helper function to download, filter, and save the filtered image locally
@@ -12,13 +13,18 @@ export async function filterImageFromURL(inputURL: string): Promise<string> {
   return new Promise(async (resolve, reject) => {
     try {
       // ==== Code from Udacity ===
-      console.log('🚀 ~ file: util.ts:16 ~ returnnewPromise ~ inputURL:', inputURL);
-      const photo = await Jimp.read(inputURL);
-      console.log('🚀 ~ file: util.ts:17 ~ returnnewPromise ~ photo:', photo);
+      /* --- Start - Fixed MIME problem --- */
+      const { data: imageBuffer } = await axios({
+        method: 'get',
+        url: inputURL,
+        responseType: 'arraybuffer',
+      });
+      /* --- End - Fixed MIME problem --- */
+      const photo = await Jimp.read(imageBuffer);
       const outpath = '/tmp/filtered.' + Math.floor(Math.random() * 2000) + '.jpg';
       // === End code from Udacity ===
 
-      // ---- This is Code for testing on Development ---
+      // ---- This is Code for testing on Development - with local file ---
       // const outpath = '/tmp/filtered/' + inputURL + '.jpg';
       // const photo = await Jimp.read(outpath);
       // console.log('🚀 ~ file: util.ts:18 ~ returnnewPromise ~ outpath:', outpath);
